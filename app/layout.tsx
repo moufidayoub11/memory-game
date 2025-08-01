@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://memory-game-moufidayoub11.vercel.app',
+    url: 'https://memory-game-seven-indol.vercel.app',
     siteName: 'Memory Game',
     title: 'Memory Game - Test Your Memory Skills',
     description: 'Challenge your memory with this polished card matching game featuring combo systems, particle effects, and dynamic audio synthesis.',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  metadataBase: new URL('https://memory-game-moufidayoub11.vercel.app'),
+  metadataBase: new URL('https://memory-game-seven-indol.vercel.app'),
   alternates: {
     canonical: '/',
   },
