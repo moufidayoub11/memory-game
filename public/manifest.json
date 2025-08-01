@@ -10,6 +10,7 @@
   "categories": ["games", "education", "entertainment"],
   "lang": "en",
   "scope": "/",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/favicon.ico",

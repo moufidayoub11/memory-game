@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import type { GameState } from "../types"
 import { useAudio } from "./useAudio"
 import { GAME_TIMING } from "../utils/constants"
@@ -22,11 +22,12 @@ export function useCardInteraction({
   onNoMatch,
 }: UseCardInteractionProps) {
   const { playFlipSound, playMatchSound } = useAudio()
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const handleCardClick = useCallback(
     (cardId: number, event: React.MouseEvent) => {
       // Early returns for invalid states
-      if (!gameState.isGameActive || gameState.gameWon || gameState.showPreview || isGameCompleting) {
+      if (!gameState.isGameActive || gameState.gameWon || gameState.showPreview || isGameCompleting || isProcessing) {
         return
       }
 
@@ -46,6 +47,7 @@ export function useCardInteraction({
 
       // Check for match when two cards are flipped
       if (newFlippedCards.length === 2) {
+        setIsProcessing(true)
         updateGameState({ moves: gameState.moves + 1 })
 
         const [firstId, secondId] = newFlippedCards
@@ -65,6 +67,7 @@ export function useCardInteraction({
               matchedPairs: gameState.matchedPairs + 1,
               flippedCards: [],
             })
+            setIsProcessing(false)
           }, GAME_TIMING.MATCH_DELAY)
         } else {
           // No match
@@ -77,11 +80,12 @@ export function useCardInteraction({
               ),
               flippedCards: [],
             })
+            setIsProcessing(false)
           }, GAME_TIMING.NO_MATCH_DELAY)
         }
       }
     },
-    [gameState, updateGameState, playFlipSound, playMatchSound, isGameCompleting, onMatch, onNoMatch],
+    [gameState, updateGameState, playFlipSound, playMatchSound, isGameCompleting, onMatch, onNoMatch, isProcessing],
   )
 
   return {
