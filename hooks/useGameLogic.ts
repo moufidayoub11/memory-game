@@ -13,9 +13,10 @@ interface UseGameLogicProps {
   updateGameState: (updates: Partial<GameState>) => void
   currentConfig: { pairs: number; previewTime: number }
   timer: number
+  resetTimer: () => void
 }
 
-export function useGameLogic({ gameState, updateGameState, currentConfig, timer }: UseGameLogicProps) {
+export function useGameLogic({ gameState, updateGameState, currentConfig, timer, resetTimer }: UseGameLogicProps) {
   // Specialized hooks for different concerns
   const combo = useComboSystem()
   const particles = useParticleEffects()
@@ -54,6 +55,7 @@ export function useGameLogic({ gameState, updateGameState, currentConfig, timer 
   const startGame = useCallback(() => {
     completion.resetCompletion()
     combo.resetAllStats()
+    resetTimer()
 
     // Store current cards to avoid stale closure
     const currentCards = gameState.cards
@@ -73,7 +75,7 @@ export function useGameLogic({ gameState, updateGameState, currentConfig, timer 
         isGameActive: true,
       })
     }, currentConfig.previewTime)
-  }, [gameState.cards, updateGameState, currentConfig.previewTime, completion, combo])
+  }, [gameState.cards, updateGameState, currentConfig.previewTime, completion, combo, resetTimer])
 
   return {
     combo: combo.combo,

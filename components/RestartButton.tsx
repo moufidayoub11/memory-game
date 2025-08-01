@@ -7,9 +7,10 @@ import { useEffect, useState } from "react"
 interface RestartButtonProps {
   onRestart: () => void
   show: boolean
+  isGameFinished?: boolean
 }
 
-export function RestartButton({ onRestart, show }: RestartButtonProps) {
+export function RestartButton({ onRestart, show, isGameFinished = false }: RestartButtonProps) {
   const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export function RestartButton({ onRestart, show }: RestartButtonProps) {
         } transition-all duration-500 ease-out`}
       >
         <RotateCcw className="w-5 h-5 mr-2" />
-        New Game
+        {isGameFinished ? "New Game" : "Reset Game"}
       </Button>
     </div>
   )

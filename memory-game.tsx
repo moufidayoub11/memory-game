@@ -20,7 +20,7 @@ export default function MemoryGame() {
   const { gameState, currentConfig, createGameGrid, updateGameState, setDifficulty } =
     useGameState()
 
-  const { timer } = useGameTimer(gameState.isGameActive, gameState.showPreview || gameState.gameWon)
+  const { timer, resetTimer } = useGameTimer(gameState.isGameActive, gameState.showPreview || gameState.gameWon)
 
   const {
     combo,
@@ -39,6 +39,7 @@ export default function MemoryGame() {
     updateGameState,
     currentConfig,
     timer,
+    resetTimer,
   })
 
   // Initialize game grid on mount and when difficulty changes
@@ -49,7 +50,8 @@ export default function MemoryGame() {
   const handleNewGame = useCallback(() => {
     createGameGrid()
     setShowWinScreen(false)
-  }, [setShowWinScreen, createGameGrid])
+    resetTimer()
+  }, [setShowWinScreen, createGameGrid, resetTimer])
 
   const handleShowLeaderboard = useCallback(() => {
     setShowLeaderboard(true)
@@ -99,7 +101,8 @@ export default function MemoryGame() {
 
         <RestartButton
           onRestart={handleNewGame}
-          show={gameState.gameWon && !showWinScreen}
+          show={gameState.isGameActive || (gameState.gameWon && !showWinScreen)}
+          isGameFinished={gameState.gameWon}
         />
       </div>
 
