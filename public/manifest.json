@@ -1,0 +1,20 @@
+{
+  "name": "Memory Game - Test Your Memory Skills",
+  "short_name": "Memory Game",
+  "description": "A polished memory card matching game with combo system, particle effects, and dynamic audio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "categories": ["games", "education", "entertainment"],
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
